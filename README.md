@@ -1,2 +1,2 @@
 # teamp1
-mjucampusguide
+mjucampusguide 과제물임미다
