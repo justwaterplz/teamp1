@@ -16,7 +16,6 @@ import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.overlay.Marker;
 
 public class MapsActivity extends Activity implements OnMapReadyCallback {
-
 //  naver import
     private MapView mapView;
 

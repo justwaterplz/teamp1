@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "232557906936",
+    "project_id": "mjucampusguide",
+    "storage_bucket": "mjucampusguide.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:232557906936:android:4fac451f13306fff6b640d",
+        "android_client_info": {
+          "package_name": "com.example.mjucampusguide"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "232557906936-lkn2uskdb9q8o9g6fske0mhqkl2bfbq0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDy_HfXJD9mDQeMOm2YH-vIpucQrdRWndU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "232557906936-lkn2uskdb9q8o9g6fske0mhqkl2bfbq0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
