@@ -4,7 +4,8 @@ import android.app.Activity;
 import android.graphics.PointF;
 import android.os.Bundle;
 
-import com.google.android.gms.maps.GoogleMap;
+import androidx.annotation.NonNull;
+
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraPosition;
 import com.naver.maps.map.CameraUpdate;
@@ -39,6 +40,7 @@ public class MapsActivity extends Activity implements OnMapReadyCallback {
                 .compassEnabled(false)
                 .scaleBarEnabled(false);
 
+
     }
     /**
      * Manipulates the map once available.
@@ -52,13 +54,17 @@ public class MapsActivity extends Activity implements OnMapReadyCallback {
     @Override
     public void onMapReady(NaverMap naverMap) {
 
-//      카메라 위치 업데이트(이거를 해야 초기화면 학교로뜸)
-        CameraUpdate cameraUpdate = CameraUpdate.scrollTo(new LatLng(37.222866, 127.190195));
+//      카메라 위치 업데이트(이거를 해야 초기화면 학교로뜸) +경도 수정 0.0018뺌
+        CameraUpdate cameraUpdate = CameraUpdate.scrollAndZoomTo(new LatLng(37.222866, 127.188395),15.6);
         naverMap.moveCamera(cameraUpdate);
 
-//      초기화면 마커 위치설정 (명지대학교 자연캠퍼스)
+//      초기화면 마커 위치설정 (명지대학교 자연캠퍼스)  +나중에 지울 예정
         Marker marker = new Marker();
         marker.setPosition(new LatLng(37.222866, 127.190195));
         marker.setMap(naverMap);
+
+
+
+
     }
 }
