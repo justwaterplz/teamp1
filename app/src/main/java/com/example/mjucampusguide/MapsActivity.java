@@ -1,24 +1,40 @@
 package com.example.mjucampusguide;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.graphics.PointF;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraPosition;
 import com.naver.maps.map.CameraUpdate;
+import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.NaverMapOptions;
 import com.naver.maps.map.NaverMapSdk;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.overlay.Marker;
+import com.naver.maps.map.util.FusedLocationSource;
 
-public class MapsActivity extends Activity implements OnMapReadyCallback {
-//  naver import
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, NaverMap.OnMapClickListener {
+    private static final int PERMISSION_REQUEST_CODE = 100;
+    private static final String[] PERMISSIONS = {
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+    };
+
+    private NaverMap nMap;
+
+
     private MapView mapView;
+    //위치 반환 구현체
+    private FusedLocationSource mLocationSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,17 +44,26 @@ public class MapsActivity extends Activity implements OnMapReadyCallback {
                 new NaverMapSdk.NaverCloudPlatformClient("hqrwc9phrm"));
 
         setContentView(R.layout.activity_maps_naver);
+
         mapView = findViewById(R.id.map_view);
+        
+        //NaverMap 객체 받기
         mapView.getMapAsync(this);
 
-//      카메라 포지션 설정
+        //카메라 포지션 설정
         CameraPosition cameraPosition = new CameraPosition(
                 new LatLng(37.222866, 127.190195),16);
 
+        //맵 옵션
         NaverMapOptions options = new NaverMapOptions()
                 .camera(cameraPosition)
                 .compassEnabled(false)
                 .scaleBarEnabled(false);
+
+
+        //위치 반환하는 구현체 생성
+        mLocationSource = new FusedLocationSource(this,PERMISSION_REQUEST_CODE);
+        FusedLocationSource mLocationSource = this.mLocationSource;
 
 
     }
@@ -63,8 +88,30 @@ public class MapsActivity extends Activity implements OnMapReadyCallback {
         marker.setPosition(new LatLng(37.222866, 127.190195));
         marker.setMap(naverMap);
 
+        //네이버맵 객체에 위치 소스 지정
+        nMap = naverMap;
+        nMap.setLocationSource(mLocationSource);
 
-
+        //권한확인 하고 결관느 onRequestPermissionResult 콜백 메소드 호출
+        ActivityCompat.requestPermissions(this,PERMISSIONS,PERMISSION_REQUEST_CODE);
 
     }
+
+    @Override
+    public void onMapClick(@NonNull PointF pointF, @NonNull LatLng latLng) {
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                nMap.setLocationTrackingMode(LocationTrackingMode.NoFollow);
+            }
+        }
+    }
 }
+
+
