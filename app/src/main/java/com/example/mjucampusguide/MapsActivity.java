@@ -35,6 +35,7 @@ import com.naver.maps.map.util.FusedLocationSource;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 
@@ -55,9 +56,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private NaverMap nMap;
 //  naver import
     private MapView mapView;
-    private LinkedList<FC> from_db;
+
+//  파이어베이스
+    private ArrayList<FC> from_db;
     private FirebaseDatabase db;
     private DatabaseReference dbr;
+
+//  카테고리
+    private Category Print;
+    private Category CS;
+    private Category ATM;
+    private Category Restaurant;
+    private Category RA;
+    private Category ETC;
 
     //위치 반환 구현체
     private FusedLocationSource mLocationSource;
@@ -90,7 +101,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 //      파이어베이스 연동구문
 
-        from_db = new LinkedList<>();//FC를 데이터베이스에거 받아올 리스트
+        from_db = new ArrayList<>();//FC를 데이터베이스에거 받아올 리스트
 
         db = FirebaseDatabase.getInstance();//파이어베이스 DB연동
 
@@ -111,7 +122,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Log.e("MapsActivity", String.valueOf(error.toException()));//에러문 출력
             }
         });
+//  카테고리 생성 및 분류
+        Print = new Category("Print");
+        CS = new Category("CS");
+        Restaurant = new Category("Restaurant");
+        ATM = new Category("ATM");
+        RA = new Category("RA");
+        ETC = new Category("ETC");
 
+        classification_by_Category(from_db);
 
         //위치 반환하는 구현체 생성
         mLocationSource = new FusedLocationSource(this,PERMISSION_REQUEST_CODE);
@@ -165,6 +184,28 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
     }
+
+//  데이터 분류 함수
+    public void classification_by_Category(ArrayList<FC> arrayList){
+        Iterator<FC> fc = arrayList.iterator();
+        while(fc.hasNext()){
+            FC i = fc.next();
+            if(i.getCategory() == "Print"){
+                Print.Add(i);
+            }else if(i.getCategory() == "CS") {
+                CS.Add(i);
+            }else if(i.getCategory() == "ATM"){
+                ATM.Add(i);
+            }else if(i.getCategory() == "Restaurant"){
+                Restaurant.Add(i);
+            }else if(i.getCategory() == "RA"){
+                RA.Add(i);
+            }else if(i.getCategory() == "ETC"){
+                ETC.Add(i);
+            }
+        }
+    }
+
 }
 
 
