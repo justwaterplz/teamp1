@@ -9,20 +9,14 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-<<<<<<< HEAD
-=======
 
->>>>>>> b277f41ed8ac6d83655f894d3cb15b995b61f009
 import com.google.android.gms.maps.GoogleMap;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-<<<<<<< HEAD
-=======
 
->>>>>>> b277f41ed8ac6d83655f894d3cb15b995b61f009
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -40,18 +34,15 @@ import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.util.FusedLocationSource;
 
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.LinkedList;
 
 
-=======
 import java.util.LinkedList;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 
->>>>>>> b277f41ed8ac6d83655f894d3cb15b995b61f009
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, NaverMap.OnMapClickListener {
     private static final int PERMISSION_REQUEST_CODE = 100;
     private static final String[] PERMISSIONS = {
@@ -65,10 +56,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private LinkedList<FC> from_db;
     private FirebaseDatabase db;
     private DatabaseReference dbr;
-<<<<<<< HEAD
-=======
 
->>>>>>> b277f41ed8ac6d83655f894d3cb15b995b61f009
     //위치 반환 구현체
     private FusedLocationSource mLocationSource;
 
