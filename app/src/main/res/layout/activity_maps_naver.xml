@@ -1,13 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.naver.maps.map.MapView
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:map="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/map_view"
-android:layout_width="match_parent"
-android:layout_height="match_parent"/>
+<!--relativeLayout으로 mapView에서도 버튼 사용 가능하게함-->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MapsActivity"
+    tools:ignore="ExtraText">
 
+    <com.naver.maps.map.MapView
+        android:id="@+id/map_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="visible"
+        tools:visibility="visible" />
 
+    <!--  버튼 화면 우측하단에 위치하게 함  -->
+    <!--    -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+
+        android:text="카테고리"
+        android:visibility="visible"
+        tools:visibility="visible" />
+
+</RelativeLayout>
 
 
 
