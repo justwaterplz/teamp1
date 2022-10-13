@@ -9,19 +9,19 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-<<<<<<< HEAD
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-=======
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
->>>>>>> origin/main
+
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraPosition;
 import com.naver.maps.map.CameraUpdate;
@@ -34,6 +34,11 @@ import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.util.FusedLocationSource;
 
+import java.util.LinkedList;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, NaverMap.OnMapClickListener {
     private static final int PERMISSION_REQUEST_CODE = 100;
     private static final String[] PERMISSIONS = {
@@ -42,23 +47,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     };
 
     private NaverMap nMap;
-
-
-<<<<<<< HEAD
-import java.util.ArrayList;
-import java.util.LinkedList;
-
-public class MapsActivity extends Activity implements OnMapReadyCallback {
 //  naver import
     private MapView mapView;
     private LinkedList<FC> from_db;
     private FirebaseDatabase db;
     private DatabaseReference dbr;
-=======
-    private MapView mapView;
+
     //위치 반환 구현체
     private FusedLocationSource mLocationSource;
->>>>>>> origin/main
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +81,7 @@ public class MapsActivity extends Activity implements OnMapReadyCallback {
                 .compassEnabled(false)
                 .scaleBarEnabled(false);
 
-<<<<<<< HEAD
+
 //      파이어베이스 연동구문
 
         from_db = new LinkedList<>();//FC를 데이터베이스에거 받아올 리스트
@@ -108,13 +105,13 @@ public class MapsActivity extends Activity implements OnMapReadyCallback {
                 Log.e("MapsActivity", String.valueOf(error.toException()));//에러문 출력
             }
         });
-=======
+
 
         //위치 반환하는 구현체 생성
         mLocationSource = new FusedLocationSource(this,PERMISSION_REQUEST_CODE);
         FusedLocationSource mLocationSource = this.mLocationSource;
 
->>>>>>> origin/main
+
 
     }
     /**
