@@ -1,10 +1,14 @@
 package com.example.mjucampusguide;
 
+import static com.naver.maps.map.g.a.v;
+
 import android.Manifest;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.graphics.PointF;
 import android.os.Bundle;
+<<<<<<< Updated upstream
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -15,12 +19,19 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+=======
+import android.view.View;
+>>>>>>> Stashed changes
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+<<<<<<< Updated upstream
 
+=======
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+>>>>>>> Stashed changes
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraPosition;
 import com.naver.maps.map.CameraUpdate;
@@ -54,8 +65,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     };
 
     private NaverMap nMap;
+<<<<<<< Updated upstream
 //  naver import
     private MapView mapView;
+=======
+    //fab(category)
+    private FloatingActionButton fabCategory;
+    //fab status
+    private boolean fabCategory_status = false;
+>>>>>>> Stashed changes
 
 //  파이어베이스
     private ArrayList<FC> from_db;
@@ -84,6 +102,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps_naver);
 
         mapView = findViewById(R.id.map_view);
+
+        //카테고리 fab
+        fabCategory = findViewById(R.id.fabCategory);
         
         //NaverMap 객체 받기
         mapView.getMapAsync(this);
@@ -136,18 +157,38 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mLocationSource = new FusedLocationSource(this,PERMISSION_REQUEST_CODE);
         FusedLocationSource mLocationSource = this.mLocationSource;
 
+        fabCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //카테고리 클릭 시 버튼 위로 펼쳐짐
+                toggleFab();
+            }
+        });
+
+
+
 
 
     }
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+
+    public void toggleFab(){
+        if(fabCategory_status){
+            ObjectAnimator fc_animation = ObjectAnimator.ofFloat();
+            ObjectAnimator fe_animation = ObjectAnimator.ofFloat(fabEdit, "translationY", 0f);
+            fe_animation.start();
+
+            fabCategory.setImageResource(com.naver.maps.map.R.drawable.navermap_default_marker_icon_pink);
+        }
+        else{
+            ObjectAnimator fc_animation = ObjectAnimator.ofFloat();
+            ObjectAnimator fe_animation = ObjectAnimator.ofFloat(fabEdit, "translationY", 0f);
+            fe_animation.start();
+
+            fabCategory.setImageResource(com.naver.maps.map.R.drawable.navermap_default_marker_icon_yellow);
+        }
+        fabCategory_status = !fabCategory_status;
+    }
+
     @Override
     public void onMapReady(NaverMap naverMap) {
 

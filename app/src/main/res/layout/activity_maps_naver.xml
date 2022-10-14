@@ -17,16 +17,79 @@
 
     <!--  버튼 화면 우측하단에 위치하게 함  -->
     <!--    -->
-    <Button
+<!--    <Button-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+
+<!--        android:text="카테고리"-->
+<!--        android:visibility="visible"-->
+<!--        tools:visibility="visible" />-->
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:src="@drawable/navermap_default_marker_icon_red"
+        android:textSize="30sp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        />
 
-        android:text="카테고리"
-        android:visibility="visible"
-        tools:visibility="visible" />
+    <!-- 편의점-->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabCVS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/navermap_default_marker_icon_red"
+        android:textSize="30sp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        />
+
+    <!--학식 or 폴주니어-->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabCafeteria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/navermap_default_marker_icon_red"
+        android:textSize="30sp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        />
+
+    <!--  복사실  -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabPrint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/navermap_default_marker_icon_red"
+        android:textSize="30sp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        />
+
+    <!--  휴게실  -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabRest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/navermap_default_marker_icon_"
+        android:textSize="30sp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        />
+
+
+
+
 
 </RelativeLayout>
 
