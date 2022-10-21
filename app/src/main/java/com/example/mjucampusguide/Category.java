@@ -10,7 +10,7 @@ public class Category {
 
     public Category(String name){
         Category_name = name;
-        FCCategory.clear();
+        //FCCategory.clear();
     }
 
     public void Add(FC fc){

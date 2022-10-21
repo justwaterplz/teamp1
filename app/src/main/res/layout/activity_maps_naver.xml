@@ -8,6 +8,7 @@
     tools:context=".MapsActivity"
     tools:ignore="ExtraText">
 
+
     <com.naver.maps.map.MapView
         android:id="@+id/map_view"
         android:layout_width="fill_parent"
@@ -15,28 +16,28 @@
         android:visibility="visible"
         tools:visibility="visible" />
 
-    <!--  버튼 화면 우측하단에 위치하게 함  -->
-    <!--    -->
-<!--    <Button-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        >
 
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_alignParentBottom="true"-->
 
-<!--        android:text="카테고리"-->
-<!--        android:visibility="visible"-->
-<!--        tools:visibility="visible" />-->
-
+    <!--카테고리 버튼 우측 하단위치-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/navermap_default_marker_icon_red"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:backgroundTint="@color/black"
+        android:src="@drawable/ic_add"
         android:textSize="30sp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="16dp"
+
+        android:contentDescription="fabCategory"
+
         />
 
     <!-- 편의점-->
@@ -44,12 +45,23 @@
         android:id="@+id/fabCVS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/navermap_default_marker_icon_red"
-        android:textSize="30sp"
+        android:layout_above="@id/fabCategory"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="16dp"
-        />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+
+        android:layout_toEndOf="@id/fabCategory"
+        android:clickable="true"
+
+        android:contentDescription="fabCVS"
+        android:focusable="true"
+        android:src="@drawable/navermap_default_marker_icon_red"
+        android:textSize="30sp"
+        android:visibility="invisible"
+        tools:visibility="visible" />
 
     <!--학식 or 폴주니어-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -61,6 +73,13 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
+        android:contentDescription="fabCafeteria"
+        android:clickable="true"
+        android:focusable="true"
+
+        android:layout_above="@+id/fabCVS"
+
+        android:visibility="invisible"
         />
 
     <!--  복사실  -->
@@ -73,6 +92,13 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
+        android:contentDescription="fabPrint"
+        android:clickable="true"
+        android:focusable="true"
+
+        android:layout_above="@+id/fabCafeteria"
+
+        android:visibility="invisible"
         />
 
     <!--  휴게실  -->
@@ -80,18 +106,26 @@
         android:id="@+id/fabRest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/navermap_default_marker_icon_"
+        android:src="@drawable/navermap_default_marker_icon_gray"
         android:textSize="30sp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
+        android:contentDescription="fabRest"
+        android:clickable="true"
+        android:focusable="true"
+
+        android:visibility="invisible"
+
+        android:layout_above="@+id/fabPrint"
         />
-
-
-
-
+    </RelativeLayout>
 
 </RelativeLayout>
+
+
+
+
 
 
 

@@ -1,37 +1,34 @@
 package com.example.mjucampusguide;
 
-import static com.naver.maps.map.g.a.v;
+//import static com.naver.maps.map.g.a.v;
 
 import android.Manifest;
-import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.graphics.PointF;
 import android.os.Bundle;
-<<<<<<< Updated upstream
+
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.maps.GoogleMap;
+//import com.google.android.material.animation.AnimationUtils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-=======
-import android.view.View;
->>>>>>> Stashed changes
 
-import androidx.annotation.NonNull;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-<<<<<<< Updated upstream
 
-=======
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
->>>>>>> Stashed changes
+
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraPosition;
 import com.naver.maps.map.CameraUpdate;
@@ -47,14 +44,6 @@ import com.naver.maps.map.util.FusedLocationSource;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
-
-
-
-import java.util.LinkedList;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
 
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, NaverMap.OnMapClickListener {
@@ -65,17 +54,37 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     };
 
     private NaverMap nMap;
-<<<<<<< Updated upstream
+
 //  naver import
     private MapView mapView;
-=======
+
     //fab(category)
     private FloatingActionButton fabCategory;
-    //fab status
-    private boolean fabCategory_status = false;
->>>>>>> Stashed changes
 
-//  파이어베이스
+    //fab(CVS)
+    private FloatingActionButton fabCVS;
+    //fab(Print)
+    private FloatingActionButton fabPrint;
+    //fab(Cafeteria)
+    private FloatingActionButton fabCafeteria;
+    //fab(Rest)
+    private FloatingActionButton fabRest;
+
+    //fab animations
+    private Animation fabOpen;
+    private Animation fabClose;
+    private Animation toBottom;
+    private Animation fromBottom;
+
+   //
+   // private Animation fabClose;
+   // private AnimationUtils toBottom;
+   // private AnimationUtils fromBottom;
+
+    //clicked
+    private boolean clicked = false;
+
+    //  파이어베이스
     private ArrayList<FC> from_db;
     private FirebaseDatabase db;
     private DatabaseReference dbr;
@@ -119,6 +128,58 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .compassEnabled(false)
                 .scaleBarEnabled(false);
 
+        //애니메이션 
+        fabOpen = AnimationUtils.loadAnimation(this,R.anim.fab_open_anim);
+        fabClose = AnimationUtils.loadAnimation(this,R.anim.fab_close_anim);
+        toBottom = AnimationUtils.loadAnimation(this,R.anim.to_bottom_anim);
+        fromBottom = AnimationUtils.loadAnimation(this,R.anim.to_bottom_anim);
+
+        //카테고리버튼 + 액션리스너
+        fabCategory = findViewById(R.id.fabCategory);
+        fabCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onCategoryBtnClicked();
+            }
+        });
+
+        //편의점
+        fabCVS = findViewById(R.id.fabCategory);
+        fabCVS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //이후 이벤트 처리
+                //onCVSBtnClicked();
+            }
+        });
+        //식당
+        fabCafeteria = findViewById(R.id.fabCafeteria);
+        fabCafeteria.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //이후 이벤트 처리
+                //onCafeteriaBtnClicked();
+            }
+        });
+        //복사실
+        fabPrint = findViewById(R.id.fabPrint);
+        fabPrint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //이후 이벤트 처리
+                //onPrintBtnClicked();
+            }
+        });
+        //휴게실
+        fabRest = findViewById(R.id.fabRest);
+        fabRest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //이후 이벤트 처리
+                //onRestBtnClicked();
+            }
+        });
+
 
 //      파이어베이스 연동구문
 
@@ -161,7 +222,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 //카테고리 클릭 시 버튼 위로 펼쳐짐
-                toggleFab();
+
             }
         });
 
@@ -171,23 +232,48 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
-    public void toggleFab(){
-        if(fabCategory_status){
-            ObjectAnimator fc_animation = ObjectAnimator.ofFloat();
-            ObjectAnimator fe_animation = ObjectAnimator.ofFloat(fabEdit, "translationY", 0f);
-            fe_animation.start();
+    private void onCategoryBtnClicked(){
+        setVisibility(clicked);
+        setAnimation(clicked);
+        clicked = !clicked;
+    }
 
-            fabCategory.setImageResource(com.naver.maps.map.R.drawable.navermap_default_marker_icon_pink);
+    private void setVisibility(boolean clicked){
+        //on
+        if(!clicked){
+            fabCVS.setVisibility(fabCategory.VISIBLE);
+            fabCafeteria.setVisibility(fabCategory.VISIBLE);
+            fabPrint.setVisibility(fabCategory.VISIBLE);
+            fabRest.setVisibility(fabCategory.VISIBLE);
         }
         else{
-            ObjectAnimator fc_animation = ObjectAnimator.ofFloat();
-            ObjectAnimator fe_animation = ObjectAnimator.ofFloat(fabEdit, "translationY", 0f);
-            fe_animation.start();
-
-            fabCategory.setImageResource(com.naver.maps.map.R.drawable.navermap_default_marker_icon_yellow);
+            fabCVS.setVisibility(fabCategory.INVISIBLE);
+            fabCafeteria.setVisibility(fabCategory.INVISIBLE);
+            fabPrint.setVisibility(fabCategory.INVISIBLE);
+            fabRest.setVisibility(fabCategory.INVISIBLE);
         }
-        fabCategory_status = !fabCategory_status;
     }
+
+    //애니메이션효과
+    private void setAnimation(boolean clicked){
+        if(!clicked){
+            fabCVS.startAnimation(fromBottom);
+            fabCafeteria.startAnimation(fromBottom);
+            fabPrint.startAnimation(fromBottom);
+            fabRest.startAnimation(fromBottom);
+
+            fabCategory.startAnimation(fabOpen);
+        }
+        else{
+            fabCVS.startAnimation(toBottom);
+            fabCafeteria.startAnimation(toBottom);
+            fabPrint.startAnimation(toBottom);
+            fabRest.startAnimation(toBottom);
+
+            fabCategory.startAnimation(fabClose);
+        }
+    }
+
 
     @Override
     public void onMapReady(NaverMap naverMap) {
