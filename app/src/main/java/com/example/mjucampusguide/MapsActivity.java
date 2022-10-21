@@ -97,6 +97,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Category RA;
     private Category ETC;
 
+//  건물
+    private Bilding B_2;
+    private Bilding B_3;
+    private Bilding B_5;
+    private Bilding B_7;
+    private Bilding B_8;
+    private Bilding B_10;
+    private Bilding B_11;
+    private Bilding B_12;
+    private Bilding B_14;
+    private Bilding B_13;
+
+
     //위치 반환 구현체
     private FusedLocationSource mLocationSource;
 
@@ -213,6 +226,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         ETC = new Category("ETC");
 
         classification_by_Category(from_db);
+//  건물 생성 및 분류
+        B_2 = new Bilding("학관", 2);
+        B_3 = new Bilding("복지동", 3);
+        B_5 = new Bilding("명덕관, 명현관", 5);
+        B_7 = new Bilding("1공,5공학관", 7);
+        B_8 = new Bilding("명진당", 8);
+        B_10 = new Bilding("신학협력관, 방목기념관", 10);
+        B_11 = new Bilding("함박관", 11);
+        B_12 = new Bilding("차세대 과학관", 12);
+        B_13 = new Bilding("건축관, 자연조형센터 , 디자인관", 13);
+        B_14 = new Bilding("3공학관", 14);
+
+        classification_by_Bliding(from_db);
+
+
 
         //위치 반환하는 구현체 생성
         mLocationSource = new FusedLocationSource(this,PERMISSION_REQUEST_CODE);
@@ -333,6 +361,41 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    public void classification_by_Bliding(ArrayList<FC> init){
+        Iterator<FC> in = init.iterator();
+        while(in.hasNext()){
+            FC i = in.next();
+            if(i.getAddress() == 2){
+                B_2.add(i);
+            }else if(i.getAddress() == 3){
+                B_3.add(i);
+            }
+            else if(i.getAddress() == 5){
+                B_5.add(i);
+            }
+            else if(i.getAddress() == 7){
+                B_7.add(i);
+            }
+            else if(i.getAddress() == 8){
+                B_8.add(i);
+            }
+            else if(i.getAddress() == 10){
+                B_10.add(i);
+            }
+            else if(i.getAddress() == 11){
+                B_11.add(i);
+            }
+            else if(i.getAddress() == 12){
+                B_12.add(i);
+            }
+            else if(i.getAddress() == 13){
+                B_13.add(i);
+            }
+            else if(i.getAddress() == 14){
+                B_14.add(i);
+            }
+        }
+    }
 }
 
 
