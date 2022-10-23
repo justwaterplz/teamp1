@@ -415,10 +415,29 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 }
 
 // 최단거리 반환 함수
-    public int min_building(int bnum, String fc){
-        int minnum = 0;
+    public int min_building(int bnum){
+        int arr[14];
+        int [] minb = {0,1,2,3,4,5,6,7,8,9,10,11,12,13};
+        int temp =0;
+        int temp2 =0;
 
+        for(int i =0; i<14; i++){
+            arr[i] = minway[bnum][i];
+        }
 
+        for(int i = 0; i < 14; i++) {
+            for(int j = 0; j < 13; j++) {
+                if(arr[j] > arr[j + 1]) {
+                    temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    temp2 = minb[j];
+                    minb[j] = minb[j + 1];
+                    minb[j + 1]= temp2;
 
-        return minnum;
+                }
+            }
+        }
+
+        return minb;
     }
