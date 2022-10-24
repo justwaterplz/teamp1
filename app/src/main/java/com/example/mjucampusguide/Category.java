@@ -13,7 +13,7 @@ public class Category {
 
     public Category(String name){
         Category_name = name;
-        FCCategory.clear();
+        FCCategory = new LinkedList<>();
     }
 
     public void Add(FC fc){
@@ -26,7 +26,7 @@ public class Category {
 
     public void CategorySort(int[] data){
         LinkedList<FC> SortExample = new LinkedList<>();
-        for(int i=0;i<data.length-1;i++){
+        for(int i=0;i<data.length;i++){
             Iterator<FC> exam = FCCategory.iterator();
             while(exam.hasNext()){
                 FC l = exam.next();
@@ -36,6 +36,6 @@ public class Category {
                 }
             }
         }
-        SortExample = FCCategory;
+        FCCategory = SortExample;
     }
 }
