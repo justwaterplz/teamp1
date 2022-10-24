@@ -1,26 +1,38 @@
 package com.example.mjucampusguide;
 
+//import static com.naver.maps.map.g.a.v;
+
 import android.Manifest;
-import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.graphics.PointF;
 import android.os.Bundle;
+
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+<<<<<<< HEAD
 
 import com.google.android.gms.maps.GoogleMap;
+=======
+//import com.google.android.material.animation.AnimationUtils;
+>>>>>>> adbfb15ac707fdd68cb16453e25f1e3d042a88c8
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import androidx.annotation.NonNull;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraPosition;
@@ -37,14 +49,6 @@ import com.naver.maps.map.util.FusedLocationSource;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
-
-
-
-import java.util.LinkedList;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
 
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, NaverMap.OnMapClickListener {
@@ -55,10 +59,37 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     };
 
     private NaverMap nMap;
+
 //  naver import
     private MapView mapView;
 
-//  파이어베이스
+    //fab(category)
+    private FloatingActionButton fabCategory;
+
+    //fab(CVS)
+    private FloatingActionButton fabCVS;
+    //fab(Print)
+    private FloatingActionButton fabPrint;
+    //fab(Cafeteria)
+    private FloatingActionButton fabCafeteria;
+    //fab(Rest)
+    private FloatingActionButton fabRest;
+
+    //fab animations
+    private Animation fabOpen;
+    private Animation fabClose;
+    private Animation toBottom;
+    private Animation fromBottom;
+
+   //
+   // private Animation fabClose;
+   // private AnimationUtils toBottom;
+   // private AnimationUtils fromBottom;
+
+    //clicked
+    private boolean clicked = false;
+
+    //  파이어베이스
     private ArrayList<FC> from_db;
     private FirebaseDatabase db;
     private DatabaseReference dbr;
@@ -71,6 +102,38 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Category Restaurant;
     private Category RA;
     private Category ETC;
+
+//  건물
+    private Bilding B_2;
+    private Bilding B_3;
+    private Bilding B_5;
+    private Bilding B_7;
+    private Bilding B_8;
+    private Bilding B_10;
+    private Bilding B_11;
+    private Bilding B_12;
+    private Bilding B_14;
+    private Bilding B_13;
+
+    //  최단거리 이차원 배열 1~14번까지
+    private int [][] min_way ={
+            {0, 73, 335, 235, 435, 205, 155, 185, 253, 248, 253, 265, 363, 649},
+            {73, 0, 356, 162, 456, 132, 82, 112, 180, 175, 180, 192, 290, 576},
+            {335, 356, 0, 430, 100, 400, 350, 380, 448, 443, 448, 460, 470, 550},
+            {235, 162, 430, 0, 530, 130, 80, 50, 84, 125, 138, 113, 288, 574},
+            {435, 456, 100, 530, 0, 497, 450, 480, 548, 543, 548, 560, 570, 505},
+            {205, 132, 400, 130, 497, 0, 50, 80, 148, 78, 110, 160, 158, 444},
+            {155, 82, 350, 80, 450, 50, 0, 30, 98, 93, 98, 110, 208, 494},
+            {185, 112, 380, 50, 480, 80, 30, 0, 68, 96, 88, 84, 238, 524},
+            {253, 180, 448, 84, 548, 148, 98, 68, 0, 78, 116, 66, 263, 549},
+            {255, 182, 450, 168, 550, 70, 100, 118, 135, 0, 45, 95, 185, 471},
+            {227, 154, 422, 125, 522, 118, 72, 75, 90, 50, 0, 50, 235, 521},
+            {235, 162, 430, 100, 530, 82, 80, 50, 40, 12, 50, 0, 197, 483},
+            {350, 277, 420, 275, 502, 145, 195, 225, 293, 188, 233, 283, 0, 286},
+            {648, 575, 485, 573, 503, 443, 493, 523, 591, 477, 522, 572, 298, 0}
+    };
+
+
 
     //위치 반환 구현체
     private FusedLocationSource mLocationSource;
@@ -86,6 +149,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps_naver);
 
         mapView = findViewById(R.id.map_view);
+
+        //카테고리 fab
+        fabCategory = findViewById(R.id.fabCategory);
         
         //NaverMap 객체 받기
         mapView.getMapAsync(this);
@@ -99,6 +165,58 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .camera(cameraPosition)
                 .compassEnabled(false)
                 .scaleBarEnabled(false);
+
+        //애니메이션 
+        fabOpen = AnimationUtils.loadAnimation(this,R.anim.fab_open_anim);
+        fabClose = AnimationUtils.loadAnimation(this,R.anim.fab_close_anim);
+        toBottom = AnimationUtils.loadAnimation(this,R.anim.to_bottom_anim);
+        fromBottom = AnimationUtils.loadAnimation(this,R.anim.to_bottom_anim);
+
+        //카테고리버튼 + 액션리스너
+        fabCategory = findViewById(R.id.fabCategory);
+        fabCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onCategoryBtnClicked();
+            }
+        });
+
+        //편의점
+        fabCVS = findViewById(R.id.fabCategory);
+        fabCVS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //이후 이벤트 처리
+                //onCVSBtnClicked();
+            }
+        });
+        //식당
+        fabCafeteria = findViewById(R.id.fabCafeteria);
+        fabCafeteria.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //이후 이벤트 처리
+                //onCafeteriaBtnClicked();
+            }
+        });
+        //복사실
+        fabPrint = findViewById(R.id.fabPrint);
+        fabPrint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //이후 이벤트 처리
+                //onPrintBtnClicked();
+            }
+        });
+        //휴게실
+        fabRest = findViewById(R.id.fabRest);
+        fabRest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //이후 이벤트 처리
+                //onRestBtnClicked();
+            }
+        });
 
 
 //      파이어베이스 연동구문
@@ -133,23 +251,81 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         ETC = new Category("ETC");
 
         classification_by_Category(from_db);
+//  건물 생성 및 분류
+        B_2 = new Bilding("학관", 2);
+        B_3 = new Bilding("복지동", 3);
+        B_5 = new Bilding("명덕관, 명현관", 5);
+        B_7 = new Bilding("1공,5공학관", 7);
+        B_8 = new Bilding("명진당", 8);
+        B_10 = new Bilding("신학협력관, 방목기념관", 10);
+        B_11 = new Bilding("함박관", 11);
+        B_12 = new Bilding("차세대 과학관", 12);
+        B_13 = new Bilding("건축관, 자연조형센터 , 디자인관", 13);
+        B_14 = new Bilding("3공학관", 14);
+
+        classification_by_Bliding(from_db);
 
         //위치 반환하는 구현체 생성
         mLocationSource = new FusedLocationSource(this,PERMISSION_REQUEST_CODE);
         FusedLocationSource mLocationSource = this.mLocationSource;
 
+        fabCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //카테고리 클릭 시 버튼 위로 펼쳐짐
+
+            }
+        });
+
+
+
 
 
     }
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+
+    private void onCategoryBtnClicked(){
+        setVisibility(clicked);
+        setAnimation(clicked);
+        clicked = !clicked;
+    }
+
+    private void setVisibility(boolean clicked){
+        //on
+        if(!clicked){
+            fabCVS.setVisibility(fabCategory.VISIBLE);
+            fabCafeteria.setVisibility(fabCategory.VISIBLE);
+            fabPrint.setVisibility(fabCategory.VISIBLE);
+            fabRest.setVisibility(fabCategory.VISIBLE);
+        }
+        else{
+            fabCVS.setVisibility(fabCategory.INVISIBLE);
+            fabCafeteria.setVisibility(fabCategory.INVISIBLE);
+            fabPrint.setVisibility(fabCategory.INVISIBLE);
+            fabRest.setVisibility(fabCategory.INVISIBLE);
+        }
+    }
+
+    //애니메이션효과
+    private void setAnimation(boolean clicked){
+        if(!clicked){
+            fabCVS.startAnimation(fromBottom);
+            fabCafeteria.startAnimation(fromBottom);
+            fabPrint.startAnimation(fromBottom);
+            fabRest.startAnimation(fromBottom);
+
+            fabCategory.startAnimation(fabOpen);
+        }
+        else{
+            fabCVS.startAnimation(toBottom);
+            fabCafeteria.startAnimation(toBottom);
+            fabPrint.startAnimation(toBottom);
+            fabRest.startAnimation(toBottom);
+
+            fabCategory.startAnimation(fabClose);
+        }
+    }
+
+
     @Override
     public void onMapReady(NaverMap naverMap) {
 
@@ -208,6 +384,70 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-}
+    public void classification_by_Bliding(ArrayList<FC> init){
+        Iterator<FC> in = init.iterator();
+        while(in.hasNext()){
+            FC i = in.next();
+            if(i.getAddress() == 2){
+                B_2.add(i);
+            }else if(i.getAddress() == 3){
+                B_3.add(i);
+            }
+            else if(i.getAddress() == 5){
+                B_5.add(i);
+            }
+            else if(i.getAddress() == 7){
+                B_7.add(i);
+            }
+            else if(i.getAddress() == 8){
+                B_8.add(i);
+            }
+            else if(i.getAddress() == 10){
+                B_10.add(i);
+            }
+            else if(i.getAddress() == 11){
+                B_11.add(i);
+            }
+            else if(i.getAddress() == 12){
+                B_12.add(i);
+            }
+            else if(i.getAddress() == 13){
+                B_13.add(i);
+            }
+            else if(i.getAddress() == 14){
+                B_14.add(i);
+            }
+        }
+    }
 
+    // 최단거리 반환 함수
+    public int[] min_building(int b_num){
+        int []arr = {};
+        int [] min_b = {1,2,3,4,5,6,7,8,9,10,11,12,13,14};
+        int temp =0;
+        int temp2 =0;
+
+        for(int i =0; i<14; i++){
+            arr[i] = min_way[b_num][i];
+        }
+
+        for(int i = 0; i < 14; i++) {
+            for(int j = 0; j < 13; j++) {
+                if(arr[j] > arr[j + 1]) {
+                    temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    temp2 = min_b[j];
+                    min_b[j] = min_b[j + 1];
+                    min_b[j + 1]= temp2;
+
+                }
+            }
+        }
+
+        return min_b;
+    }
+
+
+}
 

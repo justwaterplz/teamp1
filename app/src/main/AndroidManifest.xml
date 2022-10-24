@@ -17,7 +17,7 @@
         android:roundIcon="@mipmap/mju_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MJUCampusGuide"
-        tools:targetApi="31">
+        tools:targetApi="33">
         <activity
             android:name=".BtnActivity"
             android:exported="false">
