@@ -10,12 +10,15 @@
         android:orientation="vertical"
         android:layout_weight="1"
         >
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
             android:layout_gravity="top"
             android:text="카테고리 선택 페이지."
-            android:textSize="30dp"></TextView>
+            android:textSize="30sp">
+
+        </TextView>
     </LinearLayout>
 
     <LinearLayout
@@ -24,31 +27,78 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-    <!--여기에 카테고리 버튼이 들어감-->
-<!--        <Button-->
-<!--            android:layout_width=""-->
-<!--            android:layout_height=""-->
+    <!--여기에 카테고리 버튼이 들어감 2행 3열 모양으로-->
+    <!-- 1행-->
 
+        <!-- 2행-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity=""
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
+            <Button
+                android:id="@+id/printBtn"
+                android:layout_width="135dp"
+                android:layout_height="50dp"
+                android:text="print" />
+
+            <Button
+                android:id="@+id/csBtn"
+                android:layout_width="136dp"
+                android:layout_height="50dp"
+                android:text="cs" />
+
+            <Button
+                android:id="@+id/atmBtn"
+                android:layout_width="141dp"
+                android:layout_height="50dp"
+                android:text="atm" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/restaurantBtn"
+                android:layout_width="139dp"
+                android:layout_height="wrap_content"
+                android:text="restaurant" />
+
+            <Button
+                android:id="@+id/RABtn"
+                android:layout_width="139dp"
+                android:layout_height="wrap_content"
+                android:text="RA" />
+
+            <Button
+                android:id="@+id/etcBtn"
+                android:layout_width="131dp"
+                android:layout_height="wrap_content"
+                android:text="ETC"/>
+        </LinearLayout>
 
 
     </LinearLayout>
 
 <!--    이전버튼 공간-->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="bottom|left"
+        android:gravity="bottom|end"
         android:orientation="vertical">
 
-    <Button
-        android:id="@+id/prevBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        <Button
+            android:id="@+id/prevBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-        android:text="이전"
-        />
+            android:text="이전" />
     </LinearLayout>
 
 
