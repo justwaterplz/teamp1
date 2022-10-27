@@ -11,12 +11,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-<<<<<<< HEAD
 
-import com.google.android.gms.maps.GoogleMap;
-=======
-//import com.google.android.material.animation.AnimationUtils;
->>>>>>> adbfb15ac707fdd68cb16453e25f1e3d042a88c8
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
