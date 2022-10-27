@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Bildings">
+        <item>채플관</item>
+        <item>학관</item>
+        <item>복지동</item>
+        <item>창조예술관</item>
+        <item>명덕관,명현관</item>
+        <item>2공학관</item>
+        <item>1공,5공학관</item>
+        <item>명진당</item>
+        <item>체육관,대운동장</item>
+        <item>신학협력관,방목기념관</item>
+        <item>함박관</item>
+        <item>차세대과학관</item>
+        <item>건축관,자연조형센터,디자인관</item>
+        <item>3공학관</item>
+    </string-array>
+    
+</resources>

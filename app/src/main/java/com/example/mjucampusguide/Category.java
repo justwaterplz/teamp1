@@ -7,7 +7,6 @@ import java.util.Iterator;
 
 public class Category {
 
-    private Sorting sort;
     private LinkedList<FC> FCCategory;
     private String Category_name;
 
