@@ -3,6 +3,7 @@ package com.example.mjucampusguide;
 //import static com.naver.maps.map.g.a.v;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.PointF;
 import android.os.Bundle;
@@ -11,12 +12,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-<<<<<<< HEAD
-
 import com.google.android.gms.maps.GoogleMap;
-=======
-//import com.google.android.material.animation.AnimationUtils;
->>>>>>> adbfb15ac707fdd68cb16453e25f1e3d042a88c8
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -63,28 +60,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //  naver import
     private MapView mapView;
 
-    //fab(category)
-    private FloatingActionButton fabCategory;
+    //button(category)
+    private Button categoryBtn;
 
-    //fab(CVS)
-    private FloatingActionButton fabCVS;
-    //fab(Print)
-    private FloatingActionButton fabPrint;
-    //fab(Cafeteria)
-    private FloatingActionButton fabCafeteria;
-    //fab(Rest)
-    private FloatingActionButton fabRest;
+    //print cs atm restaurant ra etc button
+    private Button printBtn;
+    private Button csBtn;
+    private Button atmBtn;
+    private Button restaurantBtn;
+    private Button raBtn;
+    private Button etcBtn;
 
-    //fab animations
-    private Animation fabOpen;
-    private Animation fabClose;
-    private Animation toBottom;
-    private Animation fromBottom;
 
-   //
-   // private Animation fabClose;
-   // private AnimationUtils toBottom;
-   // private AnimationUtils fromBottom;
 
     //clicked
     private boolean clicked = false;
@@ -150,8 +137,16 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         mapView = findViewById(R.id.map_view);
 
-        //카테고리 fab
-        fabCategory = findViewById(R.id.fabCategory);
+        categoryBtn = (Button)findViewById(R.id.categoryBtn);
+        categoryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),page2nd.class);
+                startActivity(intent);
+            }
+        });
+
+
         
         //NaverMap 객체 받기
         mapView.getMapAsync(this);
@@ -166,57 +161,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .compassEnabled(false)
                 .scaleBarEnabled(false);
 
-        //애니메이션 
-        fabOpen = AnimationUtils.loadAnimation(this,R.anim.fab_open_anim);
-        fabClose = AnimationUtils.loadAnimation(this,R.anim.fab_close_anim);
-        toBottom = AnimationUtils.loadAnimation(this,R.anim.to_bottom_anim);
-        fromBottom = AnimationUtils.loadAnimation(this,R.anim.to_bottom_anim);
 
-        //카테고리버튼 + 액션리스너
-        fabCategory = findViewById(R.id.fabCategory);
-        fabCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onCategoryBtnClicked();
-            }
-        });
 
-        //편의점
-        fabCVS = findViewById(R.id.fabCategory);
-        fabCVS.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //이후 이벤트 처리
-                //onCVSBtnClicked();
-            }
-        });
-        //식당
-        fabCafeteria = findViewById(R.id.fabCafeteria);
-        fabCafeteria.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //이후 이벤트 처리
-                //onCafeteriaBtnClicked();
-            }
-        });
-        //복사실
-        fabPrint = findViewById(R.id.fabPrint);
-        fabPrint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //이후 이벤트 처리
-                //onPrintBtnClicked();
-            }
-        });
-        //휴게실
-        fabRest = findViewById(R.id.fabRest);
-        fabRest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //이후 이벤트 처리
-                //onRestBtnClicked();
-            }
-        });
 
 
 //      파이어베이스 연동구문
@@ -269,13 +215,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mLocationSource = new FusedLocationSource(this,PERMISSION_REQUEST_CODE);
         FusedLocationSource mLocationSource = this.mLocationSource;
 
-        fabCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //카테고리 클릭 시 버튼 위로 펼쳐짐
 
-            }
-        });
 
 
 
@@ -283,47 +223,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
-    private void onCategoryBtnClicked(){
-        setVisibility(clicked);
-        setAnimation(clicked);
-        clicked = !clicked;
-    }
 
-    private void setVisibility(boolean clicked){
-        //on
-        if(!clicked){
-            fabCVS.setVisibility(fabCategory.VISIBLE);
-            fabCafeteria.setVisibility(fabCategory.VISIBLE);
-            fabPrint.setVisibility(fabCategory.VISIBLE);
-            fabRest.setVisibility(fabCategory.VISIBLE);
-        }
-        else{
-            fabCVS.setVisibility(fabCategory.INVISIBLE);
-            fabCafeteria.setVisibility(fabCategory.INVISIBLE);
-            fabPrint.setVisibility(fabCategory.INVISIBLE);
-            fabRest.setVisibility(fabCategory.INVISIBLE);
-        }
-    }
 
-    //애니메이션효과
-    private void setAnimation(boolean clicked){
-        if(!clicked){
-            fabCVS.startAnimation(fromBottom);
-            fabCafeteria.startAnimation(fromBottom);
-            fabPrint.startAnimation(fromBottom);
-            fabRest.startAnimation(fromBottom);
 
-            fabCategory.startAnimation(fabOpen);
-        }
-        else{
-            fabCVS.startAnimation(toBottom);
-            fabCafeteria.startAnimation(toBottom);
-            fabPrint.startAnimation(toBottom);
-            fabRest.startAnimation(toBottom);
 
-            fabCategory.startAnimation(fabClose);
-        }
-    }
+
 
 
     @Override
