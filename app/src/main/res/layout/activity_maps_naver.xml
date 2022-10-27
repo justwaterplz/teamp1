@@ -1,127 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--relativeLayout으로 mapView에서도 버튼 사용 가능하게함-->
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MapsActivity"
-    tools:ignore="ExtraText">
+    tools:ignore="ExtraText"
+    android:orientation="vertical">
 
-
-    <com.naver.maps.map.MapView
-        android:id="@+id/map_view"
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:visibility="visible"
-        tools:visibility="visible" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        >
+        <com.naver.maps.map.MapView
+            android:id="@+id/map_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:visibility="visible"
+            android:enabled="true"
+            android:clickable="true"
+            android:contentDescription="this is map"
+            tools:visibility="visible" />
 
-
-    <!--카테고리 버튼 우측 하단위치-->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabCategory"
+    </LinearLayout>
+    <!--중간 하단에 버튼 위치-->
+    <Button
+        android:id="@+id/categoryBtn"
+        android:text="카테고리"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:backgroundTint="@color/black"
-        android:src="@drawable/ic_add"
-        android:textSize="30sp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-
-        android:contentDescription="fabCategory"
-
-        />
-
-    <!-- 편의점-->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabCVS"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/fabCategory"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-
-        android:layout_toEndOf="@id/fabCategory"
-        android:clickable="true"
-
-        android:contentDescription="fabCVS"
-        android:focusable="true"
-        android:src="@drawable/navermap_default_marker_icon_red"
-        android:textSize="30sp"
-        android:visibility="invisible"
-        tools:visibility="visible" />
-
-    <!--학식 or 폴주니어-->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabCafeteria"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/navermap_default_marker_icon_red"
-        android:textSize="30sp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
-        android:contentDescription="fabCafeteria"
+        android:backgroundTint="@color/purple_700"
         android:clickable="true"
+        android:contentDescription="categoryBtn"
         android:focusable="true"
+        android:src="@drawable/navermap_default_marker_icon_blue"
 
-        android:layout_above="@+id/fabCVS"
-
-        android:visibility="invisible"
-        />
-
-    <!--  복사실  -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabPrint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/navermap_default_marker_icon_red"
         android:textSize="30sp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="16dp"
-        android:contentDescription="fabPrint"
-        android:clickable="true"
-        android:focusable="true"
+        android:visibility="visible" />
 
-        android:layout_above="@+id/fabCafeteria"
-
-        android:visibility="invisible"
-        />
-
-    <!--  휴게실  -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabRest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/navermap_default_marker_icon_gray"
-        android:textSize="30sp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="16dp"
-        android:contentDescription="fabRest"
-        android:clickable="true"
-        android:focusable="true"
-
-        android:visibility="invisible"
-
-        android:layout_above="@+id/fabPrint"
-        />
-    </RelativeLayout>
-
-</RelativeLayout>
+</LinearLayout>
 
 
 
