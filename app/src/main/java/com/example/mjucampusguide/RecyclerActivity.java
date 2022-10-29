@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import com.google.firebase.database.DataSnapshot;
@@ -19,7 +20,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class RecyclerActivity extends AppCompatActivity {
     private Spinner spinner;
@@ -29,8 +29,8 @@ public class RecyclerActivity extends AppCompatActivity {
     private Category category;
 
     private ArrayList<FC> from_db;
-    private FirebaseDatabase db;
-    private DatabaseReference dbr;
+    //private FirebaseDatabase db;
+    //private DatabaseReference dbr;
 
     private Category Print;
     private Category CS;
@@ -38,8 +38,10 @@ public class RecyclerActivity extends AppCompatActivity {
     private Category Restaurant;
     private Category RA;
     private Category ETC;
+    private Category Cafe;
 
     private int B_num = 0;
+    private int C_num;
 
     private boolean isFirstSelected = true;
 
@@ -70,10 +72,10 @@ public class RecyclerActivity extends AppCompatActivity {
         //      파이어베이스 연동구문
         from_db = new ArrayList<>();//FC를 데이터베이스에거 받아올 리스트
 
-        db = FirebaseDatabase.getInstance();//파이어베이스 DB연동
+        //db = FirebaseDatabase.getInstance();//파이어베이스 DB연동
 
         //dbr = db.getReference("FC");
-        db.getReference("FC").addValueEventListener(new ValueEventListener() {
+        /*db.getReference("FC").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //파이어베이스 데이터 받아오는 곳
@@ -88,7 +90,7 @@ public class RecyclerActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.e("RecyclerActivity", String.valueOf(error.toException()));//에러문 출력
             }
-        });
+        });*/
 
 
 
@@ -99,32 +101,28 @@ public class RecyclerActivity extends AppCompatActivity {
         ATM = new Category("ATM");
         RA = new Category("RA");
         ETC = new Category("ETC");
+        Cafe = new Category("Cafe");
+        category = new Category("C");
+        addValues();
 
-        //classification_by_Category(from_db);
-        //category = Print;
-        category = new Category("test");
-        category.Add(new FC("a", 2,"Print","asdf"));
-        category.Add(new FC("b", 3,"Print","asdf"));
-        category.Add(new FC("c", 5,"Print","asdf"));
-        category.Add(new FC("d", 7,"Print","asdf"));
-        category.Add(new FC("e", 8,"Print","asdf"));
-        category.Add(new FC("f", 10,"Print","asdf"));
-        category.Add(new FC("g", 11,"Print","asdf"));
-        category.Add(new FC("h", 12,"Print","asdf"));
-        category.Add(new FC("i", 13,"Print","asdf"));
-        category.Add(new FC("j", 14,"Print","asdf"));
-
-
-
-
-
-
-
-
-
+        classification_by_Category(from_db);
 
         Intent i = getIntent();
+        C_num = i.getIntExtra("Category", 0);
         B_num = i.getIntExtra("B_num", 0);
+        if(C_num == 0){
+            category = Print;
+        }else if(C_num == 1){
+            category = CS;
+        }else if(C_num == 2){
+            category = ATM;
+        }else if(C_num == 3){
+            category = Restaurant;
+        }else if(C_num == 4){
+            category = RA;
+        }else if(C_num == 5){
+            category = ETC;
+        }
         category.CategorySort(min_building(B_num));
 
         recyclerView = (RecyclerView)findViewById(R.id.FCrecycler_view);
@@ -134,11 +132,13 @@ public class RecyclerActivity extends AppCompatActivity {
 
         adapter = new FCAdapter(getApplicationContext());
         recyclerView.setAdapter(adapter);
-
         adapter.setArrayList(category.getList());
 
-        spinner = (Spinner) findViewById(R.id.Bildingspinner);
 
+
+
+
+        spinner = (Spinner) findViewById(R.id.Bildingspinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -150,6 +150,7 @@ public class RecyclerActivity extends AppCompatActivity {
                     int i = position-1;
                     Intent intent = new Intent(RecyclerActivity.this ,RecyclerActivity.class);
                     intent.putExtra("B_num", i);
+                    intent.putExtra("Category", C_num);
                     startActivity(intent);
                 }
 
@@ -160,26 +161,74 @@ public class RecyclerActivity extends AppCompatActivity {
 
             }
         });
+
+
+
+        Button prevBtn = (Button)findViewById(R.id.prevBtn_r);
+        prevBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RecyclerActivity.this,page2nd.class);
+                startActivity(intent);
+            }
+        });
     }
 
+    public void addValues(){
+        from_db.add(new FC("세븐일레븐편의점(학관)", 2, "CS", "1층"));
+        from_db.add(new FC("버거307", 2, "Restaurant", "1층"));
+        from_db.add(new FC("학생식당(학관)", 2, "Restaurant", "1층"));
+        from_db.add(new FC("하나은행ATM(학관)", 2, "ATM", "1층"));
+        from_db.add(new FC("우편취급국", 2, "ETC", "1층, 운영시간 : 평일(9시~18시), 점심시간(12시~13시)"));
+        from_db.add(new FC("명지view 안경점", 2, "ETC", "2층"));
+        from_db.add(new FC("STEFF 핫도그", 2, "Restaurant", "2층"));
+        from_db.add(new FC("한솔문구", 2, "ETC", "2층"));
+        from_db.add(new FC("젤라또", 2, "Restaurant", "2층"));
+        from_db.add(new FC("복사실(5공, 1공)", 7, "Print", "1층"));
+        from_db.add(new FC("5공 라운지", 7, "RA", "1층"));
+        from_db.add(new FC("하나은행ATM(명진당)", 8, "ATM", "1층"));
+        from_db.add(new FC("세븐일레븐편의점(명진당)", 8, "CS", "지하1층,유.무인 24시"));
+        from_db.add(new FC("우체국예금ATM(명진당)", 8, "ATM", "1층"));
+        from_db.add(new FC("휴게공간,스터디룸(명진당)", 8, "RA", "4층"));
+        from_db.add(new FC("복사실(명진당)", 8, "Print", "4층"));
+        from_db.add(new FC("도서관", 8, "ETC", "2층, 3층"));
+        from_db.add(new FC("복사실(차세대 과학관)", 12, "Print", "5층"));
+        from_db.add(new FC("폴주니어", 11, "Restaurant", "3층"));
+        from_db.add(new FC("세븐일레븐편의점(함박관)", 11, "CS", "3층"));
+        from_db.add(new FC("교직원식당(방목기념관)", 10, "Restaurant", "2층"));
+        from_db.add(new FC("학생식당(복지동)", 3, "Restaurant", "1층"));
+        from_db.add(new FC("이마트편의점(복지동)", 3, "CS", "1층"));
+        from_db.add(new FC("하나은행ATM(복지동)", 3, "ATM", "1층"));
+        from_db.add(new FC("명지대 당구.카페", 3, "Cafe", "2층"));
+        from_db.add(new FC("명덕카페", 5, "Cafe", "1층"));
+        from_db.add(new FC("세븐일레븐편의점(명덕관)", 5, "CS", "1층"));
+        from_db.add(new FC("Grazie", 14, "Cafe", "1층"));
+        from_db.add(new FC("Cafeing", 13, "Cafe", "1층"));
+        from_db.add(new FC("학생휴개실(건축학관)", 13, "RA", "1층"));
+        from_db.add(new FC("남학생휴개실(학관)", 2, "RA", "2층"));
+        from_db.add(new FC("하나은행", 2, "ETC", "1층"));
 
+    }
 
     //  데이터 분류 함수
     public void classification_by_Category(ArrayList<FC> arrayList){
         for(int i = 0; i<arrayList.size();i++){
             FC fc = arrayList.get(i);
-            if(fc.getCategory() == "Print"){
+            String s = fc.getCategory();
+            if(s == "Print"){
                 Print.Add(fc);
-            }else if(fc.getCategory() == "CS") {
+            }else if(s == "CS") {
                 CS.Add(fc);
-            }else if(fc.getCategory() == "ATM"){
+            }else if(s == "ATM"){
                 ATM.Add(fc);
-            }else if(fc.getCategory() == "Restaurant"){
+            }else if(s == "Restaurant"){
                 Restaurant.Add(fc);
-            }else if(fc.getCategory() == "RA"){
+            }else if(s == "RA"){
                 RA.Add(fc);
-            }else if(fc.getCategory() == "ETC"){
+            }else if(s == "ETC"){
                 ETC.Add(fc);
+            }else if(s == "Cafe"){
+                Cafe.Add(fc);
             }
         }
     }

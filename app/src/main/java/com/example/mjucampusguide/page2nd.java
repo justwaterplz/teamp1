@@ -14,6 +14,7 @@ import java.util.LinkedList;
 
 public class page2nd extends AppCompatActivity {
 
+
     protected void onCreate(@NonNull Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.page2nd);
@@ -28,13 +29,13 @@ public class page2nd extends AppCompatActivity {
         Button restaurantBtn1 = (Button)findViewById(R.id.restaurantBtn);
         Button RABtn1 = (Button)findViewById(R.id.RABtn);
         Button ETCBtn1 = (Button)findViewById(R.id.etcBtn);
-
         //각 버튼마다 클릭리스너 등록
         //print
         printBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(page2nd.this , RecyclerActivity.class);
+                intent.putExtra("Category", 0);
                 intent.putExtra("B_num", 0);
                 startActivity(intent);
             }
@@ -45,7 +46,8 @@ public class page2nd extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(page2nd.this ,RecyclerActivity.class);
-                //intent.putExtra("Category", CS);
+                intent.putExtra("Category", 1);
+                intent.putExtra("B_num", 0);
                 startActivity(intent);
             }
         });
@@ -55,7 +57,8 @@ public class page2nd extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(page2nd.this ,RecyclerActivity.class);
-                //intent.putExtra("Category", ATM);
+                intent.putExtra("Category", 2);
+                intent.putExtra("B_num", 0);
                 startActivity(intent);
             }
         });
@@ -65,7 +68,8 @@ public class page2nd extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(page2nd.this ,RecyclerActivity.class);
-                //intent.putExtra("Category", Restaurant);
+                intent.putExtra("Category", 3);
+                intent.putExtra("B_num", 0);
                 startActivity(intent);
             }
         });
@@ -75,7 +79,8 @@ public class page2nd extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(page2nd.this ,RecyclerActivity.class);
-                //intent.putExtra("Category", RA);
+                intent.putExtra("Category", 4);
+                intent.putExtra("B_num", 0);
                 startActivity(intent);
             }
         });
@@ -85,7 +90,8 @@ public class page2nd extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(page2nd.this ,RecyclerActivity.class);
-                //intent.putExtra("Category", ETC);
+                intent.putExtra("Category", 5);
+                intent.putExtra("B_num", 0);
                 startActivity(intent);
             }
         });
@@ -102,10 +108,6 @@ public class page2nd extends AppCompatActivity {
 
 
     }
-
-
-
-
 
 
 }

@@ -12,27 +12,13 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-
-
-
-import com.google.android.gms.maps.GoogleMap;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraPosition;
@@ -84,15 +70,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private FirebaseDatabase db;
     private DatabaseReference dbr;*/
 
-
-//  카테고리
-    private Category Print;
-    private Category CS;
-    private Category ATM;
-    private Category Restaurant;
-    private Category RA;
-    private Category ETC;
-
 //  건물
     private Bilding B_2;
     private Bilding B_3;
@@ -104,24 +81,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Bilding B_12;
     private Bilding B_14;
     private Bilding B_13;
-
-    //  최단거리 이차원 배열 1~14번까지
-    private int [][] min_way ={
-            {0, 73, 335, 235, 435, 205, 155, 185, 253, 248, 253, 265, 363, 649},
-            {73, 0, 356, 162, 456, 132, 82, 112, 180, 175, 180, 192, 290, 576},
-            {335, 356, 0, 430, 100, 400, 350, 380, 448, 443, 448, 460, 470, 550},
-            {235, 162, 430, 0, 530, 130, 80, 50, 84, 125, 138, 113, 288, 574},
-            {435, 456, 100, 530, 0, 497, 450, 480, 548, 543, 548, 560, 570, 505},
-            {205, 132, 400, 130, 497, 0, 50, 80, 148, 78, 110, 160, 158, 444},
-            {155, 82, 350, 80, 450, 50, 0, 30, 98, 93, 98, 110, 208, 494},
-            {185, 112, 380, 50, 480, 80, 30, 0, 68, 96, 88, 84, 238, 524},
-            {253, 180, 448, 84, 548, 148, 98, 68, 0, 78, 116, 66, 263, 549},
-            {255, 182, 450, 168, 550, 70, 100, 118, 135, 0, 45, 95, 185, 471},
-            {227, 154, 422, 125, 522, 118, 72, 75, 90, 50, 0, 50, 235, 521},
-            {235, 162, 430, 100, 530, 82, 80, 50, 40, 12, 50, 0, 197, 483},
-            {350, 277, 420, 275, 502, 145, 195, 225, 293, 188, 233, 283, 0, 286},
-            {648, 575, 485, 573, 503, 443, 493, 523, 591, 477, 522, 572, 298, 0}
-    };
 
 
 
@@ -182,29 +141,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .compassEnabled(false)
                 .scaleBarEnabled(false);
 
-/*  카테고리 생성 및 분류
-        Print = new Category("Print");
-        CS = new Category("CS");
-        Restaurant = new Category("Restaurant");
-        ATM = new Category("ATM");
-        RA = new Category("RA");
-        ETC = new Category("ETC");
-*/
-        //classification_by_Category(from_db);
-/*  건물 생성 및 분류
-        B_2 = new Bilding("학관", 2);
-        B_3 = new Bilding("복지동", 3);
-        B_5 = new Bilding("명덕관, 명현관", 5);
-        B_7 = new Bilding("1공,5공학관", 7);
-        B_8 = new Bilding("명진당", 8);
-        B_10 = new Bilding("신학협력관, 방목기념관", 10);
-        B_11 = new Bilding("함박관", 11);
-        B_12 = new Bilding("차세대 과학관", 12);
-        B_13 = new Bilding("건축관, 자연조형센터 , 디자인관", 13);
-        B_14 = new Bilding("3공학관", 14);
-
-        classification_by_Bliding(from_db);
-*/
 //      버튼 역할 부여
         categoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -270,26 +206,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-//  데이터 분류 함수
-    public void classification_by_Category(ArrayList<FC> arrayList){
-        Iterator<FC> fc = arrayList.iterator();
-        while(fc.hasNext()){
-            FC i = fc.next();
-            if(i.getCategory() == "Print"){
-                Print.Add(i);
-            }else if(i.getCategory() == "CS") {
-                CS.Add(i);
-            }else if(i.getCategory() == "ATM"){
-                ATM.Add(i);
-            }else if(i.getCategory() == "Restaurant"){
-                Restaurant.Add(i);
-            }else if(i.getCategory() == "RA"){
-                RA.Add(i);
-            }else if(i.getCategory() == "ETC"){
-                ETC.Add(i);
-            }
-        }
-    }
 
     public void classification_by_Bliding(ArrayList<FC> init){
         Iterator<FC> in = init.iterator();
@@ -325,34 +241,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 B_14.add(i);
             }
         }
-    }
-
-    // 최단거리 반환 함수
-    public int[] min_building(int b_num){
-        int []arr = {};
-        int [] min_b = {1,2,3,4,5,6,7,8,9,10,11,12,13,14};
-        int temp =0;
-        int temp2 =0;
-
-        for(int i =0; i<14; i++){
-            arr[i] = min_way[b_num][i];
-        }
-
-        for(int i = 0; i < 14; i++) {
-            for(int j = 0; j < 13; j++) {
-                if(arr[j] > arr[j + 1]) {
-                    temp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = temp;
-                    temp2 = min_b[j];
-                    min_b[j] = min_b[j + 1];
-                    min_b[j + 1]= temp2;
-
-                }
-            }
-        }
-
-        return min_b;
     }
 
 

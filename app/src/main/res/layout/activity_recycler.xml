@@ -16,9 +16,15 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/FCrecycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="515dp">
 
     </androidx.recyclerview.widget.RecyclerView>
 
+
+    <Button
+        android:id="@+id/prevBtn_r"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="이전" />
 
 </LinearLayout>
