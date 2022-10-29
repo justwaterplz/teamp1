@@ -79,10 +79,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     //clicked
     private boolean clicked = false;
 
-    //  파이어베이스
+    /*//  파이어베이스
     private ArrayList<FC> from_db;
     private FirebaseDatabase db;
-    private DatabaseReference dbr;
+    private DatabaseReference dbr;*/
 
 
 //  카테고리
@@ -132,7 +132,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         NaverMapSdk.getInstance(this).setClient(
                 new NaverMapSdk.NaverCloudPlatformClient("hqrwc9phrm"));
 
@@ -141,34 +140,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapView = findViewById(R.id.map_view);
 
         categoryBtn = (Button)findViewById(R.id.categoryBtn);
-        categoryBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),page2nd.class);
-                startActivity(intent);
-            }
-        });
 
-
-        
-        //NaverMap 객체 받기
-        mapView.getMapAsync(this);
-
-        //카메라 포지션 설정
-        CameraPosition cameraPosition = new CameraPosition(
-                new LatLng(37.222866, 127.190195),16);
-
-        //맵 옵션
-        NaverMapOptions options = new NaverMapOptions()
-                .camera(cameraPosition)
-                .compassEnabled(false)
-                .scaleBarEnabled(false);
-
-
-
-
-
-//      파이어베이스 연동구문
+        /*      파이어베이스 연동구문
 
         from_db = new ArrayList<>();//FC를 데이터베이스에거 받아올 리스트
 
@@ -190,17 +163,35 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.e("MapsActivity", String.valueOf(error.toException()));//에러문 출력
             }
-        });
-//  카테고리 생성 및 분류
+        });*/
+
+
+
+
+
+            //NaverMap 객체 받기
+        mapView.getMapAsync(this);
+
+        //카메라 포지션 설정
+        CameraPosition cameraPosition = new CameraPosition(
+                new LatLng(37.222866, 127.190195),16);
+
+        //맵 옵션
+        NaverMapOptions options = new NaverMapOptions()
+                .camera(cameraPosition)
+                .compassEnabled(false)
+                .scaleBarEnabled(false);
+
+/*  카테고리 생성 및 분류
         Print = new Category("Print");
         CS = new Category("CS");
         Restaurant = new Category("Restaurant");
         ATM = new Category("ATM");
         RA = new Category("RA");
         ETC = new Category("ETC");
-
-        classification_by_Category(from_db);
-//  건물 생성 및 분류
+*/
+        //classification_by_Category(from_db);
+/*  건물 생성 및 분류
         B_2 = new Bilding("학관", 2);
         B_3 = new Bilding("복지동", 3);
         B_5 = new Bilding("명덕관, 명현관", 5);
@@ -213,11 +204,20 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         B_14 = new Bilding("3공학관", 14);
 
         classification_by_Bliding(from_db);
+*/
+//      버튼 역할 부여
+        categoryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapsActivity.this,page2nd.class);
+                //intent.putExtra("list", from_db);
+                startActivity(intent);
+            }
+        });
 
         //위치 반환하는 구현체 생성
         mLocationSource = new FusedLocationSource(this,PERMISSION_REQUEST_CODE);
         FusedLocationSource mLocationSource = this.mLocationSource;
-
 
 
 

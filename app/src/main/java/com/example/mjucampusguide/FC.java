@@ -1,6 +1,8 @@
 package com.example.mjucampusguide;
 
-public class FC {
+import java.io.Serializable;
+
+public class FC implements Serializable {
 
     protected String Name;
     protected int Address;
@@ -11,46 +13,43 @@ public class FC {
 
     }
 
-    public FC(String name, int address, String category){
-        Name = name;
-        Address = address;
-        Category = category;
+    public FC(String Name, int Address, String Category, String Comment){
+        this.Name = Name;
+        this.Address = Address;
+        this.Category = Category;
+        this.Comment = Comment;
     }
 
     public String getCategory() {
         return Category;
     }
 
-    public void setCategory(String category) {
-        Category = category;
-    }
-
-    public FC getCS(){
-        return this;
+    public void setCategory(String Category) {
+        this.Category = Category;
     }
 
     public String getName() {
         return Name;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void setName(String Name) {
+        this.Name = Name;
     }
 
     public int getAddress() {
         return Address;
     }
 
-    public void setAddress(int address) {
-        Address = address;
+    public void setAddress(int Address) {
+        this.Address = Address;
     }
 
     public String getComment() {
         return Comment;
     }
 
-    public void setComment(String comment) {
-        Comment = comment;
+    public void setComment(String Comment) {
+        this.Comment = Comment;
     }
 
 }

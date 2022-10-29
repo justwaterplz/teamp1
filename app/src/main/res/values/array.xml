@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="Bildings">
+        <item>현재 건물</item>
         <item>채플관</item>
         <item>학관</item>
         <item>복지동</item>

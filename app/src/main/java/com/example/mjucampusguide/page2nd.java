@@ -8,7 +8,12 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+
 public class page2nd extends AppCompatActivity {
+
     protected void onCreate(@NonNull Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.page2nd);
@@ -26,69 +31,70 @@ public class page2nd extends AppCompatActivity {
 
         //각 버튼마다 클릭리스너 등록
         //print
-        prevBtn.setOnClickListener(new View.OnClickListener() {
+        printBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//              이전버튼 누르면 전페이지인 초기화면 나옴
-                Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
+                Intent intent = new Intent(page2nd.this , RecyclerActivity.class);
+                intent.putExtra("B_num", 0);
                 startActivity(intent);
             }
         });
 
         //CS
-        prevBtn.setOnClickListener(new View.OnClickListener() {
+        csBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//              이전버튼 누르면 전페이지인 초기화면 나옴
-                Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
+                Intent intent = new Intent(page2nd.this ,RecyclerActivity.class);
+                //intent.putExtra("Category", CS);
                 startActivity(intent);
             }
         });
 
         //atm
-        prevBtn.setOnClickListener(new View.OnClickListener() {
+        atmBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//              이전버튼 누르면 전페이지인 초기화면 나옴
-                Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
+                Intent intent = new Intent(page2nd.this ,RecyclerActivity.class);
+                //intent.putExtra("Category", ATM);
                 startActivity(intent);
             }
         });
 
         //restaurant
-        prevBtn.setOnClickListener(new View.OnClickListener() {
+        restaurantBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//              이전버튼 누르면 전페이지인 초기화면 나옴
-                Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
+                Intent intent = new Intent(page2nd.this ,RecyclerActivity.class);
+                //intent.putExtra("Category", Restaurant);
                 startActivity(intent);
             }
         });
 
         //RA
-        prevBtn.setOnClickListener(new View.OnClickListener() {
+        RABtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//              이전버튼 누르면 전페이지인 초기화면 나옴
-                Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
+                Intent intent = new Intent(page2nd.this ,RecyclerActivity.class);
+                //intent.putExtra("Category", RA);
                 startActivity(intent);
             }
         });
 
         //ETC
-        prevBtn.setOnClickListener(new View.OnClickListener() {
+        ETCBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//              이전버튼 누르면 전페이지인 초기화면 나옴
-                Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
+                Intent intent = new Intent(page2nd.this ,RecyclerActivity.class);
+                //intent.putExtra("Category", ETC);
                 startActivity(intent);
             }
         });
 
+
+        //이전
         prevBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//              이전버튼 누르면 전페이지인 초기화면 나옴
                 Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
                 startActivity(intent);
             }
@@ -96,4 +102,10 @@ public class page2nd extends AppCompatActivity {
 
 
     }
+
+
+
+
+
+
 }

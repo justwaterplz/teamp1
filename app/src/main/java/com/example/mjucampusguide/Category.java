@@ -1,18 +1,20 @@
 package com.example.mjucampusguide;
 
-import androidx.annotation.NonNull;
 
-import java.util.LinkedList;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Category {
+public class Category implements Serializable {
 
-    private LinkedList<FC> FCCategory;
+    private ArrayList<FC> FCCategory;
     private String Category_name;
 
     public Category(String name){
         Category_name = name;
-        FCCategory = new LinkedList<>();
+        FCCategory = new ArrayList<>();
+        FCCategory.clear();
     }
 
     public void Add(FC fc){
@@ -24,8 +26,8 @@ public class Category {
     }
 
     public void CategorySort(int[] data){
-        LinkedList<FC> SortExample = new LinkedList<>();
-        for(int i=0;i<data.length;i++){
+        ArrayList<FC> SortExample = new ArrayList<>();
+        for(int i=0;i< 14;i++){
             Iterator<FC> exam = FCCategory.iterator();
             while(exam.hasNext()){
                 FC l = exam.next();
@@ -36,5 +38,9 @@ public class Category {
             }
         }
         FCCategory = SortExample;
+    }
+
+    public ArrayList<FC> getList(){
+        return this.FCCategory;
     }
 }
